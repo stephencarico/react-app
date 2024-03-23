@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
-
-type Variant =
+type Color =
   | "primary"
   | "secondary"
   | "success"
@@ -12,13 +10,14 @@ type Variant =
   | "link";
 
 interface Props {
-  variant?: Variant;
-  children: ReactNode;
+  color?: Color;
+  children: string;
+  onClick: () => void;
 }
 
-const Button = ({ variant, children }: Props) => {
+const Button = ({ color = "primary", children, onClick }: Props) => {
   return (
-    <button type="button" className={`btn btn-${variant}`}>
+    <button type="button" className={`btn btn-${color}`} onClick={onClick}>
       {children}
     </button>
   );
