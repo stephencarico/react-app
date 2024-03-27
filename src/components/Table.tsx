@@ -13,6 +13,8 @@ const Table = ({ expenses }: Props) => {
     ? expenses.filter((expense) => expense.category === category)
     : expenses;
 
+  const total = filteredExpenses.reduce((acc, curr) => acc + curr.amount, 0);
+
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
@@ -52,6 +54,10 @@ const Table = ({ expenses }: Props) => {
               </tr>
             );
           })}
+          <tr>
+            <td>Total</td>
+            <td>{`$${total.toFixed(2)}`}</td>
+          </tr>
         </tbody>
       </table>
     </>
