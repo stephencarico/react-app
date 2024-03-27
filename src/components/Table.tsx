@@ -44,7 +44,7 @@ const Table = ({ expenses }: Props) => {
             return (
               <tr key={index}>
                 <td>{description}</td>
-                <td>{amount}</td>
+                <td>{`$${amount.toFixed(2)}`}</td>
                 <td>{category}</td>
                 <td>
                   <button className="btn btn-outline-danger">Delete</button>
