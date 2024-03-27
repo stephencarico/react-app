@@ -15,11 +15,16 @@ function App() {
     setExpenses([...expenses, formData]);
   };
 
+  const handleDeletion = (idx: number) => {
+    console.log(idx);
+    setExpenses(expenses.splice(idx, 1));
+  };
+
   return (
     <div>
       <Form onSubmit={handleSubmit}></Form>
       <div className="py-4"></div>
-      <Table expenses={expenses}></Table>
+      <Table deleteExpense={handleDeletion} expenses={expenses}></Table>
     </div>
   );
 }

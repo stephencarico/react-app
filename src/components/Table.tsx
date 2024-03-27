@@ -4,9 +4,10 @@ import { FormData } from "../hooks/schema";
 
 interface Props {
   expenses: FormData[];
+  deleteExpense: (idx: number) => void;
 }
 
-const Table = ({ expenses }: Props) => {
+const Table = ({ deleteExpense, expenses }: Props) => {
   const [category, setCategory] = useState("");
 
   const filteredExpenses: FormData[] = category
@@ -49,7 +50,12 @@ const Table = ({ expenses }: Props) => {
                 <td>{`$${amount.toFixed(2)}`}</td>
                 <td>{category}</td>
                 <td>
-                  <button className="btn btn-outline-danger">Delete</button>
+                  <button
+                    onClick={() => deleteExpense(index)}
+                    className="btn btn-outline-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
