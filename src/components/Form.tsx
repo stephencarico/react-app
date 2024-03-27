@@ -1,25 +1,18 @@
-import { useForm, FieldValues } from "react-hook-form";
-import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const schema = z.object({
-  description: z
-    .string()
-    .min(3, { message: "Description should be at least 3 characters." }),
-  amount: z.number({ invalid_type_error: "Amount is required." }).positive(),
-  category: z.string().min(1, { message: "Category is required." }),
-});
+import { schema, FormData } from "../hooks/schema";
 
-type FormData = z.infer<typeof schema>;
+interface Props {
+  onSubmit: (data: FormData) => void;
+}
 
-const Form = () => {
+const Form = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  const onSubmit = (data: FieldValues) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
