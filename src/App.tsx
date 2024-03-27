@@ -16,7 +16,6 @@ function App() {
   };
 
   const handleDeletion = (idx: number) => {
-    console.log(idx);
     setExpenses(expenses.splice(idx, 1));
   };
 
