@@ -18,9 +18,9 @@ const Table = ({ expenses }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {expenses.map(({ description, amount, category }) => {
+        {expenses.map(({ description, amount, category }, index) => {
           return (
-            <tr>
+            <tr key={index}>
               <td>{description}</td>
               <td>{amount}</td>
               <td>{category}</td>

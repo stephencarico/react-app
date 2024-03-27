@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -12,7 +13,20 @@ const Form = ({ onSubmit }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    formState,
+    reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      console.log("resetting...");
+      reset({
+        description: "",
+        amount: parseInt(""),
+        category: "",
+      });
+    }
+  }, [formState, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
