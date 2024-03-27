@@ -19,7 +19,6 @@ const Form = ({ onSubmit }: Props) => {
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      console.log("resetting...");
       reset({
         description: "",
         amount: parseInt(""),
