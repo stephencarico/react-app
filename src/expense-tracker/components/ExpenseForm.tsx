@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { schema, FormData } from "../hooks/schema";
+import { schema, ExpenseFormData } from "../schema";
+import categories from "../categories";
 
 interface Props {
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: ExpenseFormData) => void;
 }
 
 const Form = ({ onSubmit }: Props) => {
@@ -13,22 +13,16 @@ const Form = ({ onSubmit }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    formState,
     reset,
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
-
-  useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      reset({
-        description: "",
-        amount: parseInt(""),
-        category: "",
-      });
-    }
-  }, [formState, reset]);
+  } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((data) => {
+        onSubmit(data);
+        reset();
+      })}
+    >
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Description
@@ -68,10 +62,12 @@ const Form = ({ onSubmit }: Props) => {
           aria-label="Category select field"
           defaultValue={""}
         >
-          <option></option>
-          <option value="Groceries">Groceries</option>
-          <option value="Utilities">Utilities</option>
-          <option value="Entertainment">Entertainment</option>
+          <option value=""></option>
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
         {errors.category && (
           <p className="text-danger">{errors.category.message}</p>
